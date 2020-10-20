@@ -4,14 +4,12 @@ plugins {
 
 allprojects {
     apply plugin: 'com.audeering.data'
-    group 'com.audeering.data.ravdess'
-    version '1.0.2-SNAPSHOT'
+    group 'com.audeering.data.cough-speech-sneeze'
+    version '1.0.0'
     data {
         description rootProject.file('DESCRIPTION').text.split('\n')[0]
-        url 'https://gitlab.audeering.com/data/ravdess'
         accessLevel 'public'
-        licenseName 'CC BY-NC-SA 4.0'
-        licenseUrl 'http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode'
+        licenseName 'CC BY-4'
     }
 }
 

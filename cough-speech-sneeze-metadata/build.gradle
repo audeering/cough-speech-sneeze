@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-    rawData group: 'org.zenodo.ravdess', name: 'ravdess', version: '1.0.0'
+    rawData group: 'com.audeering.data.cough-speech-sneeze.raw', name: 'cough-speech-sneeze', version: '1.0.0'
 }
 
 unpackData {
@@ -22,3 +22,4 @@ task packageMetadata(type: Zip) {
 artifacts {
     data packageMetadata
 }
+
