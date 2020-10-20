@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        maven {
+            url 'https://artifactory.audeering.com/artifactory/gradle'
+        }
+    }
+    plugins {
+        id 'com.audeering.data' version '0.4.0'
+    }
+}
+rootProject.name = 'ravdess'
+include 'ravdess-data'
+include 'ravdess-metadata'

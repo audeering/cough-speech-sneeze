@@ -1,0 +1,24 @@
+configurations {
+    rawData
+}
+
+dependencies {
+    rawData group: 'org.zenodo.ravdess', name: 'ravdess', version: '1.0.0'
+}
+
+unpackData {
+    srcFiles = files(configurations.rawData)
+    destDir = layout.buildDirectory.dir('unpacked')
+}
+
+convertToUnifiedFormat {
+    dataDir = unpackData.destDir
+}
+
+task packageMetadata(type: Zip) {
+    from convertToUnifiedFormat.destDir
+}
+
+artifacts {
+    data packageMetadata
+}

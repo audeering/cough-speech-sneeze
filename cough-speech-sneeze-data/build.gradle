@@ -1,0 +1,3 @@
+dependencies {
+    data group: 'org.zenodo.ravdess', name: 'ravdess', version: '1.0.0'
+}
