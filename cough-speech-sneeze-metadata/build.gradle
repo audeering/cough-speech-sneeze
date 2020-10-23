@@ -22,4 +22,3 @@ task packageMetadata(type: Zip) {
 artifacts {
     data packageMetadata
 }
-

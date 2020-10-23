@@ -19,4 +19,3 @@ An [Artifactory] account with deploy permissions must be configured via Gradle p
 [audata]: https://gitlab.audeering.com/tools/pyaudata
 [Artifactory]: http://artifactory.audeering.local/
 [Java]: https://sdkman.io/sdks#java
-

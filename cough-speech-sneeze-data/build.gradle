@@ -1,4 +1,3 @@
 dependencies {
     data group: 'com.audeering.data.cough-speech-sneeze.raw', name: 'cough-speech-sneeze', version: '1.0.0'
 }
-
