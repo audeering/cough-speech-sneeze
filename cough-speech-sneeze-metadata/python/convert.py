@@ -45,7 +45,6 @@ def convert(
     # Media #
     #########
     # used `soxi <file name> to sample some (~10) audio files from all categories and checked their metadata
-    # All
     db.media['microphone'] = AudioInfo(
         sampling_rate=44100, # all categories got 44100 kHz, but 'silent' only got 16000 kHz
         channels=1,
@@ -86,24 +85,5 @@ def convert(
 
 
 def get_category(filename):
-    category_id = audeer.basename_wo_ext(filename).split('-')[2]
+    category_id = filename.split('/')[0]
     return CATEGORY[category_id]
-
-
-def get_intensity(filename):
-    intensity_id = audeer.basename_wo_ext(filename).split('-')[3]
-    return EMOTIONAL_INTENSITY[intensity_id]
-
-
-def get_speaker(filename):
-    return audeer.basename_wo_ext(filename).split('-')[6]
-
-
-def get_statement(filename):
-    statement_id = audeer.basename_wo_ext(filename).split('-')[4]
-    return STATEMENT[statement_id]
-
-
-def get_channel(filename):
-    channel_id = audeer.basename_wo_ext(filename).split('-')[1]
-    return VOCAL_CHANNEL[channel_id]
