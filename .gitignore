@@ -10,3 +10,6 @@ build/
 .DS_Store
 
 __pycache__
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints
