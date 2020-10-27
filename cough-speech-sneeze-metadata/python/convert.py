@@ -36,8 +36,8 @@ def convert(
     ##########
     db = Database(
         name='cough-speech-sneeze',
-        source='', #? NAS?
-        usage=define.Usage.COMMERCIAL, #?
+        source='database/DBS-Internal/DBS-non_verbal_vocalization/',
+        usage=define.Usage.COMMERCIAL, # CC-4
         description=description,
     )
 
@@ -46,7 +46,7 @@ def convert(
     #########
     # used `soxi <file name> to sample some (~10) audio files from all categories and checked their metadata
     db.media['microphone'] = AudioInfo(
-        sampling_rate=44100, # all categories got 44100 kHz, but 'silent' only got 16000 kHz
+        sampling_rate=None, # all categories got 44100 kHz, but 'silent' only got 16000 kHz
         channels=1,
         format='wav',
     )
