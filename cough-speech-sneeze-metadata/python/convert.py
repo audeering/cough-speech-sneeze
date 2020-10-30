@@ -2,7 +2,6 @@ import os
 
 import pandas as pd
 
-import audeer
 import audiofile as af
 
 import audata.define as define
@@ -16,12 +15,12 @@ from audata import (
 )
 
 
-CATEGORY ={
-    'coughing': 'coughing',
-    'silence': 'silence',
-    'sneezing': 'sneezing',
-    'speech': 'speech'
-}
+CATEGORY = [
+    'coughing',
+    'silence',
+    'sneezing',
+    'speech'
+]
 
 
 def convert(
@@ -36,7 +35,7 @@ def convert(
     ##########
     db = Database(
         name='cough-speech-sneeze',
-        source='database/DBS-Internal/DBS-non_verbal_vocalization/',
+        source='Dataset based on the publication of Shahin Amiriparian: "Amiriparian, S., Pugachevskiy, S., Cummins, N., Hantke, S., Pohjalainen, J., Keren, G., Schuller, B., 2017. CAST a database: Rapid targeted large-scale big data acquisition via small-world modelling of social media platforms, in: 2017 Seventh International Conference on Affective Computing and Intelligent Interaction (ACII). IEEE, pp. 340–345. https://doi.org/10.1109/ACII.2017.8273622"',
         usage=define.Usage.COMMERCIAL, # CC-4
         description=description,
     )
@@ -54,7 +53,7 @@ def convert(
     ###########
     # Schemes #
     ###########
-    db.schemes['category'] = Scheme(labels=list(CATEGORY.values()))
+    db.schemes['category'] = Scheme(labels=CATEGORY)
     db.schemes['duration'] = Scheme(dtype=define.DataType.TIME)
 
     ##########
@@ -85,5 +84,5 @@ def convert(
 
 
 def get_category(filename):
-    category_id = filename.split('/')[0]
-    return CATEGORY[category_id]
+    # The category-folder is always the 2nd last part of the string (e.g. 'coughing/ipo39x2bv9c_12.7253-13.7358.wav')
+    return filename.split('/')[-2]
