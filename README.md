@@ -1,4 +1,4 @@
-# ravdess
+# cough-speech-sneeze
 
 Converts the [cough-speech-sneeze-raw-data] data set to the [Unified Format] using
 [audata], and publishes it again on Artifactory.
