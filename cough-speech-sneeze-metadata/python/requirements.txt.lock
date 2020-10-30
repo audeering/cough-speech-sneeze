@@ -4,22 +4,22 @@
 #
 #    pip-compile --output-file=requirements.txt.lock requirements.txt
 #
---index-url http://artifactory.audeering.local/artifactory/api/pypi/pypi/simple
---trusted-host artifactory.audeering.local
+--index-url https://artifactory.audeering.com/artifactory/api/pypi/pypi/simple
+--trusted-host artifactory.audeering.com
 
-audata==0.5.10
-audeer==1.0.7
-audiofile==0.2.1          # via audata
-cffi==1.12.3              # via soundfile
-numpy==1.17.0             # via audata, audiofile, pandas
-oyaml==0.9                # via audata
-pandas==0.24.2            # via audata
-pycountry==19.8.18        # via audata
-pycparser==2.19           # via cffi
-python-dateutil==2.8.0    # via pandas
-pytz==2019.2              # via pandas
-pyyaml==5.1.2             # via oyaml
-six==1.12.0               # via python-dateutil
-soundfile==0.10.2         # via audiofile
-sox==1.3.7                # via audiofile
-tqdm==4.34.0              # via audata, audeer
+audata==0.7.1             # via -r requirements.txt
+audeer==1.6.6             # via audata
+audiofile==0.3.4          # via audata
+cffi==1.14.3              # via soundfile
+numpy==1.19.3             # via audata, audiofile, pandas, sox
+oyaml==1.0                # via audata
+pandas==1.1.3             # via audata
+pycountry==20.7.3         # via audata
+pycparser==2.20           # via cffi
+python-dateutil==2.8.1    # via pandas
+pytz==2020.1              # via pandas
+pyyaml==5.3.1             # via oyaml
+six==1.15.0               # via python-dateutil
+soundfile==0.10.3.post1   # via audiofile
+sox==1.4.1                # via audiofile
+tqdm==4.51.0              # via audata, audeer
