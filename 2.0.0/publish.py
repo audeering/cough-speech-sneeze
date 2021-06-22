@@ -96,7 +96,7 @@ df_db_csv = df_db_csv.rename(columns={"Unnamed: 0": "file"})
 
 for x in df_db_csv['file'].copy():
     if not final_csv_file['file'].str.contains(x).any():
-        df_db_csv= df_db_csv[~df_db_csv['file'].str.contains(x)]
+        df_db_csv = df_db_csv[~df_db_csv['file'].str.contains(x)]
 
 final_csv_file.to_csv(publish_dir + 'db.csv')
 
