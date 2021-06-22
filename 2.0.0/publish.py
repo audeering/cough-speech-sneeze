@@ -38,7 +38,6 @@ df_cough['file'] = 'coughing/' + df_cough['Media File'].astype(str)
 df_sneeze['file'] = 'sneezing/' + df_sneeze['Media File'].astype(str)
 
 #loading the original csv file for the data base
-
 df_old = pd.read_csv(build_dir +'/db.files.csv')
 
 #seperating csv file into sub catagories
