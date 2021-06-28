@@ -27,7 +27,6 @@ path_csv_reevaluation = '../20210412-102437-cough-sneeze/20210412-102437_cough-a
 df = pd.read_csv(path_csv_reevaluation)
 df = df[['Media File','Answer 1','Bad File?']]
 
-
 #Removing files with bad sound quality or other sounds than cough and sneeze
 df = df[df['Bad File?'] == False ]  
 df_cough = df[df['Answer 1'] == 'coughing']
@@ -43,18 +42,16 @@ df_old = pd.read_csv(build_dir +'/db.files.csv')
 #seperating csv file into sub catagories
 df_old_cough = df_old[df_old['category'] == 'coughing']
 df_old_sneeze = df_old[df_old['category'] == 'sneezing']
-df_old_silence = df_old[df_old['category'] == 'silence']
-df_old_speech = df_old[df_old['category'] == 'speech']
 
 
 #Removing cough and sneeze files with were not accepted in 2nd scoring round
 for x in df_old_cough['file'].copy():
     if not df_cough['file'].str.contains(x).any():
-        df_old_cough = df_old_cough[~df_old_cough['file'].str.contains(x)]
-
+        db.drop_files(x)
+        
 for x in df_old_sneeze['file'].copy():
     if not df_sneeze['file'].str.contains(x).any():
-        df_old_sneeze = df_old_sneeze[~df_old_sneeze['file'].str.contains(x)]
+        db.drop_files(x)
 
 
 #Create folders for publishing
@@ -64,40 +61,13 @@ eventName = ['coughing','silence','sneezing','speech']
 for name in eventName:
     audeer.mkdir(publish_dir+name)
 
-#Moving files from old folder to the new
-for wav_file in df_old_cough['file']:
-    source = build_dir + '/' +  wav_file
-    destination = publish_dir + 'coughing/'
-    shutil.move(source, destination)
 
-for wav_file in df_old_sneeze['file']:
-    source = build_dir + '/'  + wav_file
-    destination = publish_dir + 'sneezing/'
-    shutil.move(source, destination)
-
-for wav_file in df_old_silence['file']:
+#Move relevant files to new folder
+for wav_file in db.files:
     source = build_dir + '/' + wav_file
-    destination = publish_dir + 'silence/'
+    destination = publish_dir + wav_file
     shutil.move(source, destination)
 
-for wav_file in df_old_speech['file']:
-    source = build_dir + '/' + wav_file
-    destination = publish_dir + 'speech/'
-    shutil.move(source, destination)
-
-#Saving update csv file
-final_csv_file = pd.concat([df_old_cough,df_old_speech,df_old_silence,df_old_sneeze], ignore_index=True)
-final_csv_file.to_csv(publish_dir + 'db.files.csv')
-
-#Update db csv file
-df_db_csv = pd.read_csv(build_dir +'/db.csv')
-df_db_csv = df_db_csv.rename(columns={"Unnamed: 0": "file"})
-
-for x in df_db_csv['file'].copy():
-    if not final_csv_file['file'].str.contains(x).any():
-        df_db_csv = df_db_csv[~df_db_csv['file'].str.contains(x)]
-
-final_csv_file.to_csv(publish_dir + 'db.csv')
 
 # Update header metadata
 db.license = 'Unknown'
@@ -115,9 +85,21 @@ db.description = (
 )
 db.save(publish_dir)
 
+#Update db csv file
+db_files_updated = pd.read_csv(publish_dir +'db.files.csv')
+db_csv = pd.read_csv(build_dir +'/db.csv')
+db_csv = db_csv.rename(columns={"Unnamed: 0": "file"})
+
+for x in db_csv['file'].copy():
+    if not db_files_updated['file'].str.contains(x).any():
+        db_csv= db_csv[~db_csv['file'].str.contains(x)]
+
+db_csv.to_csv(publish_dir + 'db.csv')
+
 audb.publish(
     publish_dir,
     version,
     repository,
     previous_version=previous_version,
 )
+
