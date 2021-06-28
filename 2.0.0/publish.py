@@ -1,7 +1,7 @@
 import pandas as pd
 import audeer
 import audb
-import shutil
+
 
 name = 'cough-speech-sneeze'
 previous_version = '1.0.0'
@@ -43,7 +43,6 @@ df_old = pd.read_csv(build_dir +'/db.files.csv')
 df_old_cough = df_old[df_old['category'] == 'coughing']
 df_old_sneeze = df_old[df_old['category'] == 'sneezing']
 
-
 #Removing cough and sneeze files with were not accepted in 2nd scoring round
 for x in df_old_cough['file'].copy():
     if not df_cough['file'].str.contains(x).any():
@@ -52,22 +51,6 @@ for x in df_old_cough['file'].copy():
 for x in df_old_sneeze['file'].copy():
     if not df_sneeze['file'].str.contains(x).any():
         db.drop_files(x)
-
-
-#Create folders for publishing
-publish_dir = '../publish/'
-eventName = ['coughing','silence','sneezing','speech']
-
-for name in eventName:
-    audeer.mkdir(publish_dir+name)
-
-
-#Move relevant files to new folder
-for wav_file in db.files:
-    source = build_dir + '/' + wav_file
-    destination = publish_dir + wav_file
-    shutil.move(source, destination)
-
 
 # Update header metadata
 db.license = 'Unknown'
@@ -83,23 +66,11 @@ db.description = (
     'Seventh International Conference on Affective Computing and Intelligent' 
     'Interaction (ACII). IEEE, pp. 340–345. https://doi.org/10.1109/ACII.2017.8273622'
 )
-db.save(publish_dir)
-
-#Update db csv file
-db_files_updated = pd.read_csv(publish_dir +'db.files.csv')
-db_csv = pd.read_csv(build_dir +'/db.csv')
-db_csv = db_csv.rename(columns={"Unnamed: 0": "file"})
-
-for x in db_csv['file'].copy():
-    if not db_files_updated['file'].str.contains(x).any():
-        db_csv= db_csv[~db_csv['file'].str.contains(x)]
-
-db_csv.to_csv(publish_dir + 'db.csv')
+db.save(build_dir)
 
 audb.publish(
-    publish_dir,
+    build_dir,
     version,
     repository,
     previous_version=previous_version,
 )
-
