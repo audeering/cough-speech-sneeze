@@ -2,7 +2,6 @@ import pandas as pd
 import audeer
 import audb
 
-
 name = 'cough-speech-sneeze'
 previous_version = '1.0.0'
 version = '2.0.0'
@@ -52,20 +51,6 @@ for x in df_old_sneeze['file'].copy():
     if not df_sneeze['file'].str.contains(x).any():
         db.drop_files(x)
 
-# Update header metadata
-db.license = 'Unknown'
-
-db.description = (
-    'Cough-speech-sneeze: a data set of human sounds This dataset was collected by' 
-    'Dr. Shahin Amiriparian. It contains samples of human speech, coughing, and' 
-    'sneezing collected from YouTube, as well as silence clips. The original' 
-    'publication of this (possibly then extended) dataset is the following:' 
-    'Amiriparian, S., Pugachevskiy, S., Cummins, N., Hantke, S., Pohjalainen, J.,' 
-    'Keren, G., Schuller, B., 2017. CAST a database: Rapid targeted large-scale big' 
-    'data acquisition via small-world modelling of social media platforms, in: 2017' 
-    'Seventh International Conference on Affective Computing and Intelligent' 
-    'Interaction (ACII). IEEE, pp. 340–345. https://doi.org/10.1109/ACII.2017.8273622'
-)
 db.save(build_dir)
 
 audb.publish(
