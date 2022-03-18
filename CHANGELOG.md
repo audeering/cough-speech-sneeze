@@ -2,6 +2,14 @@ Changelog
 =========
 
 
+Version 2.0.1 -- 2022-03-18
+---------------------------
+
+* Added: authors
+* Changed: store media files as single ZIP files
+* Fixed: license information
+
+
 Version 2.0.0 -- 2021-06-18
 ---------------------------
 
