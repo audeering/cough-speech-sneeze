@@ -1,5 +1,10 @@
 # cough-speech-sneeze
 
+For further publications of `cough-speech-sneeze`, please go to
+https://github.com/audeering/datasets/tree/main/datasets/cough-speech-sneeze
+
+---
+
 This project holds code
 to convert the [cough-speech-sneeze] corpus
 containing coughing, sneezing, speech, and silence
